@@ -31,6 +31,8 @@ namespace google_breakpad {
 
 class QBreakpadHandlerPrivate;
 
+typedef void (*p_callbackFun)(QString);
+
 class QBreakpadHandler: public QObject
 {
     Q_OBJECT
@@ -46,6 +48,13 @@ public:
 
     void setDumpPath(const QString& path);
     void setUploadUrl(const QUrl& url);
+
+    //! 新增回调指针方法
+    void setCallbackMethod(p_callbackFun  func){
+        m_callfunc = func;
+    };
+    p_callbackFun  m_callfunc;
+    //!
 
 public slots:
     void sendDumps();

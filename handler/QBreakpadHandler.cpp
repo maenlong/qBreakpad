@@ -74,6 +74,9 @@ bool DumpCallback(const google_breakpad::MinidumpDescriptor& descriptor,
     qDebug("%s, dump path: %s\n", succeeded ? "Succeed to write minidump" : "Failed to write minidump", descriptor.path());
 #endif
 
+    //! 调用外部的回调函数
+    QBreakpadInstance.m_callfunc(path);
+
     return succeeded;
 }
 
