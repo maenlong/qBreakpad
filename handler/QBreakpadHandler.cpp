@@ -71,6 +71,7 @@ bool DumpCallback(const google_breakpad::MinidumpDescriptor& descriptor,
     QString path = QString::fromUtf8(dump_dir) + QLatin1String("/") + QString::fromUtf8(minidump_id);
     qDebug("%s, dump path: %s\n", succeeded ? "Succeed to write minidump" : "Failed to write minidump", qPrintable(path));
 #else
+    QString path = descriptor.path();
     qDebug("%s, dump path: %s\n", succeeded ? "Succeed to write minidump" : "Failed to write minidump", descriptor.path());
 #endif
 
