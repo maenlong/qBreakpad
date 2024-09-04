@@ -16,6 +16,7 @@ unix {
 
 # mac os x
 mac {
+    SOURCES -= $$BREAKPAD_PATH/common/linux/breakpad_getcontext.S
     OBJECTIVE_SOURCES += \
         $$BREAKPAD_PATH/client/mac/handler/exception_handler.cc \
         $$BREAKPAD_PATH/client/mac/crash_generation/crash_generation_client.cc \

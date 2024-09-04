@@ -43,6 +43,10 @@ DEPENDPATH += $$PWD/qbreakpadlib/lib/debug
 }
 
 # 配置头文件搜索路径和链接库路径
+macx: LIBS += -L$$PWD/qbreakpadlib/lib/ -lqBreakpad
+macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/libqBreakpad.a
+
+# 配置头文件搜索路径和链接库路径
 unix:!macx: LIBS += -L$$PWD/qbreakpadlib/lib/ -lqBreakpad
 unix:!macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/libqBreakpad.a
 
