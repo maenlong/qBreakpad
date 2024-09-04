@@ -34,21 +34,21 @@ macx: LIBS += -framework AppKit
 
 # 配置头文件搜索路径和链接库路径
 win32:CONFIG(release, debug|release): {
-LIBS += -L$$PWD/qbreakpadlib/lib/release/ -lqBreakpad
-DEPENDPATH += $$PWD/qbreakpadlib/lib/release
+LIBS += -L$$PWD/qbreakpadlib/lib/windows/release/ -lqBreakpad
+DEPENDPATH += $$PWD/qbreakpadlib/lib/windows/release
 }
 else:win32:CONFIG(debug, debug|release): {
-LIBS += -L$$PWD/qbreakpadlib/lib/debug/ -lqBreakpad
-DEPENDPATH += $$PWD/qbreakpadlib/lib/debug
+LIBS += -L$$PWD/qbreakpadlib/lib/windows/debug/ -lqBreakpad
+DEPENDPATH += $$PWD/qbreakpadlib/lib/windows/debug
 }
 
 # 配置头文件搜索路径和链接库路径
-macx: LIBS += -L$$PWD/qbreakpadlib/lib/ -lqBreakpad
-macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/libqBreakpad.a
+macx: LIBS += -L$$PWD/qbreakpadlib/lib/mac/ -lqBreakpad
+macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/mac/libqBreakpad.a
 
 # 配置头文件搜索路径和链接库路径
-unix:!macx: LIBS += -L$$PWD/qbreakpadlib/lib/ -lqBreakpad
-unix:!macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/libqBreakpad.a
+unix:!macx: LIBS += -L$$PWD/qbreakpadlib/lib/linux -lqBreakpad
+unix:!macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/linux/libqBreakpad.a
 
 INCLUDEPATH += $$PWD/qbreakpadlib/include
 DEPENDPATH += $$PWD/qbreakpadlib/include
