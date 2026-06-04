@@ -34,7 +34,7 @@ lib/
 | `windows/x86/debug/` | PE 32-bit i386 | MSVC 2017 (14.16.27023) | Qt 5.15 (msvc2019 kit) | — | 历史构建 | 运行库 `MDd`（动态 Debug），带 `.pdb` |
 | `windows/x86/release/` | PE 32-bit i386 | MSVC 2017 (14.16.27023) | Qt 5.15 (msvc2019 kit) | — | 历史构建 | 运行库 `MD`（动态 Release） |
 | `linux/arm64/` | — | — | — | — | — | 待补编 |
-| `mac/arm64/` | — | — | — | — | — | 待补编 |
+| `mac/arm64/` | Mach-O 64-bit arm64 | Apple clang (Xcode) | Qt 5.15.19 (Homebrew `qt@5`, arm64 原生) | macOS 11.0 | 2026-06-04 | Apple Silicon (M1/M2/M3...) 原生 |
 | `windows/x64/debug/` | — | — | — | — | — | 待补编 |
 | `windows/x64/release/` | — | — | — | — | — | 待补编 |
 
