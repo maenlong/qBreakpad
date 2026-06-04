@@ -6,19 +6,19 @@
 
 ```
 lib/
-├── linux/
-│   ├── x86_64/        Linux 64-bit Intel/AMD
-│   └── arm64/         Linux 64-bit ARM (aarch64)
+├── windows/
+│   ├── x86/           Windows 32-bit (MSVC)
+│   │   ├── release/
+│   │   └── debug/
+│   └── x64/           Windows 64-bit (MSVC)
+│       ├── release/
+│       └── debug/
 ├── mac/
 │   ├── x86_64/        macOS Intel
 │   └── arm64/         macOS Apple Silicon (M1/M2/M3...)
-└── windows/
-    ├── x86/           Windows 32-bit (MSVC)
-    │   ├── debug/
-    │   └── release/
-    └── x64/           Windows 64-bit (MSVC)
-        ├── debug/
-        └── release/
+└── linux/
+    ├── x86_64/        Linux 64-bit Intel/AMD
+    └── arm64/         Linux 64-bit ARM (aarch64)
 ```
 
 每个叶子目录里都放一份 `libqBreakpad.a`（macOS / Linux）或 `qBreakpad.lib` (+ `.pdb` for debug)（Windows）。空目录用 `.gitkeep` 占位，方便以后补编。
@@ -29,14 +29,14 @@ lib/
 
 | 目录 | 架构 | 编译器 | Qt 版本 | Deployment Target | 构建日期 | 备注 |
 |---|---|---|---|---|---|---|
-| `linux/x86_64/` | ELF 64-bit x86-64 | GCC（gnu/linux） | _TBD_ | _TBD_ | 历史构建 | 原仓库遗留 |
-| `mac/x86_64/` | Mach-O 64-bit x86_64 | Apple clang | _TBD_ | _TBD_ | 历史构建 | 原仓库遗留，**非 arm64** |
-| `windows/x86/debug/` | PE 32-bit i386 | MSVC 2017 (14.16.27023) | Qt 5.15 (msvc2019 kit) | — | 历史构建 | 运行库 `MDd`（动态 Debug），带 `.pdb` |
 | `windows/x86/release/` | PE 32-bit i386 | MSVC 2017 (14.16.27023) | Qt 5.15 (msvc2019 kit) | — | 历史构建 | 运行库 `MD`（动态 Release） |
-| `linux/arm64/` | — | — | — | — | — | 待补编 |
-| `mac/arm64/` | Mach-O 64-bit arm64 | Apple clang (Xcode) | Qt 5.15.19 (Homebrew `qt@5`, arm64 原生) | macOS 11.0 | 2026-06-04 | Apple Silicon (M1/M2/M3...) 原生 |
-| `windows/x64/debug/` | — | — | — | — | — | 待补编 |
+| `windows/x86/debug/` | PE 32-bit i386 | MSVC 2017 (14.16.27023) | Qt 5.15 (msvc2019 kit) | — | 历史构建 | 运行库 `MDd`（动态 Debug），带 `.pdb` |
 | `windows/x64/release/` | — | — | — | — | — | 待补编 |
+| `windows/x64/debug/` | — | — | — | — | — | 待补编 |
+| `mac/x86_64/` | Mach-O 64-bit x86_64 | Apple clang (Xcode) | Qt 5.15.2 （Qt在线安装包安装, x86 原生） | macOS 11.0 | 历史构建 | 原仓库遗留，**非 arm64** |
+| `mac/arm64/` | Mach-O 64-bit arm64 | Apple clang (Xcode) | Qt 5.15.19 (Homebrew `qt@5`, arm64 原生) | macOS 11.0 | 2026-06-04 | Apple Silicon (M1/M2/M3...) 原生 |
+| `linux/x86_64/` | ELF 64-bit x86-64 | GCC（gnu/linux） | _TBD_ | _TBD_ | 历史构建 | 原仓库遗留 |
+| `linux/arm64/` | — | — | — | — | — | 待补编 |
 
 ## 重新编译方法
 
