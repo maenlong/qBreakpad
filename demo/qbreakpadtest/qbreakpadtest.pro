@@ -32,23 +32,49 @@ CONFIG += thread exceptions rtti stl
 CONFIG += c++11
 macx: LIBS += -framework AppKit
 
-# 配置头文件搜索路径和链接库路径
-win32:CONFIG(release, debug|release): {
-LIBS += -L$$PWD/qbreakpadlib/lib/windows/release/ -lqBreakpad
-DEPENDPATH += $$PWD/qbreakpadlib/lib/windows/release
-}
-else:win32:CONFIG(debug, debug|release): {
-LIBS += -L$$PWD/qbreakpadlib/lib/windows/debug/ -lqBreakpad
-DEPENDPATH += $$PWD/qbreakpadlib/lib/windows/debug
+# 根据平台 + 架构选择对应的预编译库
+# 架构子目录约定：
+#   windows : x86 / x64        （内部再分 debug / release）
+#   mac     : x86_64 / arm64
+#   linux   : x86_64 / arm64
+
+# ---- Windows ----
+win32 {
+    contains(QT_ARCH, x86_64)|contains(QMAKE_TARGET.arch, x86_64) {
+        QBREAKPAD_WIN_ARCH = x64
+    } else {
+        QBREAKPAD_WIN_ARCH = x86
+    }
+    CONFIG(release, debug|release) {
+        QBREAKPAD_LIB_DIR = $$PWD/qbreakpadlib/lib/windows/$$QBREAKPAD_WIN_ARCH/release
+    } else {
+        QBREAKPAD_LIB_DIR = $$PWD/qbreakpadlib/lib/windows/$$QBREAKPAD_WIN_ARCH/debug
+    }
+    LIBS += -L$$QBREAKPAD_LIB_DIR -lqBreakpad
+    DEPENDPATH += $$QBREAKPAD_LIB_DIR
 }
 
-# 配置头文件搜索路径和链接库路径
-macx: LIBS += -L$$PWD/qbreakpadlib/lib/mac/ -lqBreakpad
-macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/mac/libqBreakpad.a
+# ---- macOS ----
+macx {
+    contains(QT_ARCH, arm64) {
+        QBREAKPAD_LIB_DIR = $$PWD/qbreakpadlib/lib/mac/arm64
+    } else {
+        QBREAKPAD_LIB_DIR = $$PWD/qbreakpadlib/lib/mac/x86_64
+    }
+    LIBS += -L$$QBREAKPAD_LIB_DIR -lqBreakpad
+    PRE_TARGETDEPS += $$QBREAKPAD_LIB_DIR/libqBreakpad.a
+}
 
-# 配置头文件搜索路径和链接库路径
-unix:!macx: LIBS += -L$$PWD/qbreakpadlib/lib/linux -lqBreakpad
-unix:!macx: PRE_TARGETDEPS += $$PWD/qbreakpadlib/lib/linux/libqBreakpad.a
+# ---- Linux ----
+unix:!macx {
+    contains(QT_ARCH, arm64)|contains(QT_ARCH, aarch64) {
+        QBREAKPAD_LIB_DIR = $$PWD/qbreakpadlib/lib/linux/arm64
+    } else {
+        QBREAKPAD_LIB_DIR = $$PWD/qbreakpadlib/lib/linux/x86_64
+    }
+    LIBS += -L$$QBREAKPAD_LIB_DIR -lqBreakpad
+    PRE_TARGETDEPS += $$QBREAKPAD_LIB_DIR/libqBreakpad.a
+}
 
 INCLUDEPATH += $$PWD/qbreakpadlib/include
 DEPENDPATH += $$PWD/qbreakpadlib/include
